@@ -13,6 +13,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -41,8 +42,9 @@ var (
 	wasmMemory   api.Memory
 	rootMod      api.Module
 
-	modPool   *list.List
-	modPoolMu sync.Mutex
+	modPool    *list.List
+	modPoolMu  sync.Mutex
+	moduleChan chan *childModule
 )
 
 type libre2ABI struct {
@@ -83,6 +85,30 @@ type childModule struct {
 	mod        api.Module
 	tlsBasePtr uint32
 	functions  map[string]api.Function
+}
+
+func init() {
+	val := os.Getenv("TA_NUM_WORKERS")
+	if len(val) == 0 {
+		val = "0"
+	}
+	poolSize, err := strconv.Atoi(val)
+	if err != nil {
+		panic(err)
+	}
+
+	if poolSize == 0 {
+		poolSize = runtime.NumCPU()
+	}
+	fmt.Printf("initializing the go-re2 module pool with %d workers\n", poolSize)
+
+	initWASM()
+	moduleChan = make(chan *childModule, poolSize)
+
+	// initialize pool with the configured number of modules
+	for range poolSize {
+		moduleChan <- createChildModule(wasmRT, rootMod)
+	}
 }
 
 func createChildModule(rt wazero.Runtime, root api.Module) *childModule {
@@ -143,24 +169,27 @@ func createChildModule(rt wazero.Runtime, root api.Module) *childModule {
 // for now, a lock here is no more than before we added threads support.
 
 func getChildModule() *childModule {
-	modPoolMu.Lock()
-	if modPool == nil {
-		initWASM()
-	}
-	e := modPool.Front()
-	if e == nil {
-		modPoolMu.Unlock()
-		return createChildModule(wasmRT, rootMod)
-	}
-	modPool.Remove(e)
-	modPoolMu.Unlock()
-	return e.Value.(*childModule)
+	//modPoolMu.Lock()
+	//if modPool == nil {
+	//	initWASM()
+	//}
+	//e := modPool.Front()
+	//if e == nil {
+	//	modPoolMu.Unlock()
+	//	return createChildModule(wasmRT, rootMod)
+	//}
+	//modPool.Remove(e)
+	//modPoolMu.Unlock()
+	//return e.Value.(*childModule)
+
+	return <-moduleChan
 }
 
 func putChildModule(cm *childModule) {
-	modPoolMu.Lock()
-	modPool.PushBack(cm)
-	modPoolMu.Unlock()
+	//modPoolMu.Lock()
+	//modPool.PushBack(cm)
+	//modPoolMu.Unlock()
+	moduleChan <- cm
 }
 
 func initWASM() {
