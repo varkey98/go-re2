@@ -1,8 +1,8 @@
 package experimental
 
 import (
-	"github.com/wasilibs/go-re2"
-	"github.com/wasilibs/go-re2/internal"
+	"github.com/varkey98/go-re2"
+	"github.com/varkey98/go-re2/internal"
 )
 
 // CompileLatin1 is like regexp.Compile but causes the matching to treat

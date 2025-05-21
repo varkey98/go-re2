@@ -1,4 +1,4 @@
-module github.com/wasilibs/go-re2
+module github.com/varkey98/go-re2
 
 go 1.22.0
 

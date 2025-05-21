@@ -15,7 +15,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"github.com/wasilibs/go-re2/internal"
+	"github.com/varkey98/go-re2/internal"
 )
 
 // TestRE2 tests this package's regexp API against test cases

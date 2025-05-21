@@ -3,7 +3,7 @@ package re2
 import (
 	"regexp"
 
-	"github.com/wasilibs/go-re2/internal"
+	"github.com/varkey98/go-re2/internal"
 )
 
 type Regexp = internal.Regexp
