@@ -1,6 +1,6 @@
 package main
 
-import "github.com/wasilibs/go-re2"
+import "github.com/varkey98/go-re2"
 
 func main() {
 	re := re2.MustCompile("hello")

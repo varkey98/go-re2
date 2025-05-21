@@ -12,7 +12,7 @@ func parse(logLine string, rx *Regexp, wg *sync.WaitGroup) {
 	}
 }
 
-// TestConcurrency is a check for https://github.com/wasilibs/go-re2/issues/38
+// TestConcurrency is a check for https://github.com/varkey98/go-re2/issues/38
 // To allow running normally with tests, it currently is set with iterations to
 // finish in about 1 second.
 func TestConcurrency(t *testing.T) {

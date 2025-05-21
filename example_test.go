@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	regexp "github.com/wasilibs/go-re2"
+	regexp "github.com/varkey98/go-re2"
 )
 
 func Example() {

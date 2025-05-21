@@ -5,7 +5,7 @@ go 1.22.0
 require (
 	github.com/corazawaf/coraza-coreruleset/v4 v4.7.0
 	github.com/corazawaf/coraza/v3 v3.3.2
-	github.com/wasilibs/go-re2 v0.0.0-00010101000000-000000000000
+	github.com/varkey98/go-re2 v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -27,4 +27,4 @@ require (
 	rsc.io/binaryregexp v0.2.0 // indirect
 )
 
-replace github.com/wasilibs/go-re2 => ../
+replace github.com/varkey98/go-re2 => ../

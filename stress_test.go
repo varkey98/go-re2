@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// TestReplaceAllNoMatch is a regression test for https://github.com/wasilibs/go-re2/issues/56
+// TestReplaceAllNoMatch is a regression test for https://github.com/varkey98/go-re2/issues/56
 func TestReplaceAllNoMatch(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
@@ -34,7 +34,7 @@ func TestReplaceAllNoMatch(t *testing.T) {
 	}
 }
 
-// TestHighMem is a regression test for https://github.com/wasilibs/go-re2/issues/85
+// TestHighMem is a regression test for https://github.com/varkey98/go-re2/issues/85
 func TestHighMem(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
@@ -52,7 +52,7 @@ func TestHighMem(t *testing.T) {
 	}
 }
 
-// TestHeavyGC is a regression test for https://github.com/wasilibs/go-re2/issues/98
+// TestHeavyGC is a regression test for https://github.com/varkey98/go-re2/issues/98
 func TestHeavyGC(t *testing.T) {
 	if testing.Short() {
 		t.Skip()

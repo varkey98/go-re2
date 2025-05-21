@@ -6,7 +6,7 @@ import (
 	"github.com/corazawaf/coraza/v3/experimental/plugins"
 	"github.com/corazawaf/coraza/v3/experimental/plugins/plugintypes"
 
-	"github.com/wasilibs/go-re2"
+	"github.com/varkey98/go-re2"
 )
 
 type rx struct {
