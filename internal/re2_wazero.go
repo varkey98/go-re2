@@ -109,6 +109,13 @@ func init() {
 	for range poolSize {
 		moduleChan <- createChildModule(wasmRT, rootMod)
 	}
+	//
+	//go func() {
+	//	for {
+	//		fmt.Printf("current number of modules in use: %d\n", len(moduleChan))
+	//		time.Sleep(1 * time.Minute)
+	//	}
+	//}()
 }
 
 func createChildModule(rt wazero.Runtime, root api.Module) *childModule {
@@ -755,14 +762,14 @@ func (f *lazyFunction) callWithStack(ctx context.Context, callStack []uint64) (u
 	modH := getChildModule()
 	defer putChildModule(modH)
 
-	fun := modH.functions[f.name]
-	if fun == nil {
-		fun = modH.mod.ExportedFunction(f.name)
-		modH.functions[f.name] = fun
-	}
-
-	if err := fun.CallWithStack(ctx, callStack); err != nil {
-		return 0, err
-	}
+	//fun := modH.functions[f.name]
+	//if fun == nil {
+	//	fun = modH.mod.ExportedFunction(f.name)
+	//	modH.functions[f.name] = fun
+	//}
+	//
+	//if err := fun.CallWithStack(ctx, callStack); err != nil {
+	//	return 0, err
+	//}
 	return callStack[0], nil
 }
